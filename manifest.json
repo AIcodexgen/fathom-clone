@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "Fathom Clone - AI Meeting Assistant",
+  "version": "1.0.0",
+  "description": "Automatically record, transcribe, and summarize your meetings",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "scripting",
+    "offscreen",
+    "downloads"
+  ],
+  "host_permissions": [
+    "*://meet.google.com/*",
+    "*://zoom.us/*",
+    "*://teams.microsoft.com/*",
+    "*://*.zoom.us/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://meet.google.com/*",
+        "*://zoom.us/*",
+        "*://teams.microsoft.com/*",
+        "*://*.zoom.us/*"
+      ],
+      "js": ["lib/recorder.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["dashboard.html", "lib/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
